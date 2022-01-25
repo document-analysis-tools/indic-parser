@@ -118,7 +118,7 @@ for score, box, label in zip(scores, boxes, labels):
     label_name = label_mapping[label]
     if not os.path.isdir(f"{output_folderName}/{label_name}"):
         os.mkdir(f"{output_folderName}/{label_name}")
-    img_cropped = img.crop((box))
+    img_cropped = img.crop(box)
     img_name = label_name + "_" + str(c) + ".jpg"
     im1 = img_cropped.save(f"{output_folderName}/{label_name}/{img_name}")
     c+=1
