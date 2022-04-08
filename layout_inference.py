@@ -153,7 +153,8 @@ def infer_layout():
     label_name = label_mapping[label]
     count[label_name] += 1
     l_new = label_name+str(count[label_name])
-    layout_info[l_new] = box
+    info_data = {"box":box, "confidence": score}
+    layout_info[l_new] = info_data
     #print(str(l_new) + ":",box)
 
   # storing the labels and corresponding bbox coordinates in a json
