@@ -187,13 +187,19 @@ if infer_flag == "no":
 elif infer_flag == "yes":
   img, layout_info = infer_layout()
   #sorting layout_info by y_1 coordinate
-  layout_info_sort = {k: v for k, v in sorted(layout_info.items(), key=lambda item: item[1][1], reverse=True)}
+  hocr_data = {}
+  layout_info_sort = {k: v for k, v in sorted(layout_info.items(), key=lambda item: item[1]["box"][1], reverse=True)}
   with open(output_dir + '/output-ocr.txt', 'w') as f:
-    for label, box in layout_info_sort.items():
-      img_cropped = img.crop(box)
+    for label, info_dict in layout_info_sort.items():
+      img_cropped = img.crop(info_dict["box"])
       res = ocr_agent.detect(img_cropped)
       f.write(res)
+      hocr_data[res] = layout_info_sort[label]
     f.close()
+    
+  hocr_sorted_data = {k: v for k, v in sorted(hocr_data.items(), key=lambda item: item[1]["box"][1], reverse=True)}
+  with open("hocr_data.json", 'w', encoding='utf-8') as f:
+    json.dump(hocr_sorted_data, f, ensure_ascii=False, indent=4)
 
   print("OCR is complete. Please find the output in the provided output directory.")
 
