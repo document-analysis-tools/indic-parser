@@ -158,9 +158,10 @@ def infer_layout():
     #print(str(l_new) + ":",box)
 
   # storing the labels and corresponding bbox coordinates in a json
+  layout_info_sort = {k: v for k, v in sorted(layout_info.items(), key=lambda item: item[1]["box"][1], reverse=True)}
   
   with open("layout_data.json", 'w', encoding='utf-8') as f:
-    json.dump(layout_info, f, ensure_ascii=False, indent=4)
+    json.dump(layout_info_sort, f, ensure_ascii=False, indent=4)
 
     return img, layout_info
 
