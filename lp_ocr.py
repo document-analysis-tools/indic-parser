@@ -146,7 +146,7 @@ def hocr_block(k, hocr_sorted_data, i):
   for n,w in enumerate(words):
     word_list.append(f'''      <span class='ocrx_word' id='word_1_{n+1}'>{w}</span>\n''')
   
-  f = open(f'layout.hocr', 'a')
+  f = open(f'{output_dir}/layout.hocr', 'a')
   l = [carea, par, line]
   f.writelines(l)
   f.writelines(word_list)
@@ -222,11 +222,11 @@ if infer_flag == "no":
   print("OCR is complete. Please find the output in the provided output directory.")
 
 elif infer_flag == "yes":
-  img, layout_info = infer_layout()
+  img, layout_info = infer_layout(output_dir)
   #sorting layout_info by y_1 coordinate
   hocr_data = {}
   layout_info_sort = {k: v for k, v in sorted(layout_info.items(), key=lambda item: item[1]["box"][1], reverse=True)}
-  with open('/output-ocr.txt', 'w') as f:
+  with open(f'{output_dir}/output-ocr.txt', 'w') as f:
     for label, info_dict in layout_info_sort.items():
       img_cropped = img.crop(info_dict["box"])
       res = ocr_agent.detect(img_cropped)
@@ -235,12 +235,12 @@ elif infer_flag == "yes":
     f.close()
 
   hocr_sorted_data = {k: v for k, v in sorted(hocr_data.items(), key=lambda item: item[1]["box"][1], reverse=True)}
-  with open(f"hocr_data.json", 'w', encoding='utf-8') as f:
+  with open(f"{output_dir}/hocr_data.json", 'w', encoding='utf-8') as f:
     json.dump(hocr_sorted_data, f, ensure_ascii=False, indent=4)
   
   print("OCR is complete. Please find the output in the provided output directory.")
 
-  f = open(f'layout.hocr', 'w+')
+  f = open(f'{output_dir}/layout.hocr', 'w+')
   header = '''
   <?xml version="1.0" encoding="UTF-8"?>
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -261,7 +261,7 @@ elif infer_flag == "yes":
     hocr_block(item[0], hocr_sorted_data, i)
 
   footer = ['  </div>\n',' </body>\n','</html>\n']
-  f = open(f'layout.hocr', 'a')
+  f = open(f'{output_dir}/layout.hocr', 'a')
   f.writelines(footer)
   f.close()
 
