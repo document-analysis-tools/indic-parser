@@ -155,7 +155,7 @@ def hocr_block(k, hocr_sorted_data, i):
  
 
 if infer_flag == "no":
-  img_dir = input("Enter the name of our image folder for OCR: \n")
+  img_dir = input("Enter the name of our image/pdf folder for OCR: \n")
   if os.path.isdir(img_dir):
     for img_file in os.listdir(img_dir):
       if img_file.endswith('.pdf'):
