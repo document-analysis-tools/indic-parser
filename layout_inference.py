@@ -113,6 +113,8 @@ def infer_layout(output_dir):
 
   predictor = DefaultPredictor(cfg)
   im = cv2.imread(input_image_path)
+  im_name = input_image_path.split("/")[-1]
+  cv2.imwrite(f"{output_dir}/{im_name}", im)
   outputs = predictor(im)
   #print(outputs["instances"].pred_classes)
   #print(outputs["instances"].pred_boxes)
