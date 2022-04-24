@@ -185,12 +185,12 @@ if infer_flag == "no":
 
           res = ocr_agent.detect(image, return_response = True)
           tesseract_output = res["data"].to_dict('list')
-          with open(newdir + "/output/" + img_[:-4] + 'txt', 'w') as f:
+          with open(newdir + "/output/" + img_[:-4] + '.txt', 'w') as f:
             f.write(res["text"])
           task = convert_to_ls(image, tesseract_output, per_level='block_num')
           tasks.append(task)
-        with open("./" + newdir + "/output/" + img_[:-4] + '_ocr_tasks.json', mode='w') as f:
-          json.dump(tasks, f, indent=2)
+          with open("./" + newdir + "/output/" + img_[:-4] + '_ocr_tasks.json', mode='w') as f:
+            json.dump(task, f, indent=2)
 
       elif img_file.endswith('.jpg') or img_file.endswith('.png') or img_file.endswith('.jpeg'):
         print("OCR-ing images...\n")
