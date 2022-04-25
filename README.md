@@ -1,4 +1,4 @@
-# layout-with-ocr
+# Digitization for Documents in Indian Languages 
 
 A repository that combines OCR with custom Layout Detection for Sanskrit and English documents. 
 Simply upload your images or pdfs for OCR in the 'test images' folder of this repository, choose a model for OCR and Layout Detection, and recieve the OCR output and infered image in your output folder! 
