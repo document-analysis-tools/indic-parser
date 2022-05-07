@@ -31,7 +31,7 @@ from detectron2.structures import BoxMode
 import yaml
 from detectron2.data.datasets import register_coco_instances
 
-def infer_layout():
+def infer_layout(output_dir):
   custom_config = "custom_labels_weights.yml"
   with open(custom_config, 'r') as stream:
       custom_yml_loaded = yaml.safe_load(stream)
@@ -113,6 +113,8 @@ def infer_layout():
 
   predictor = DefaultPredictor(cfg)
   im = cv2.imread(input_image_path)
+  im_name = input_image_path.split("/")[-1]
+  cv2.imwrite(f"{output_dir}/{im_name}", im)
   outputs = predictor(im)
   #print(outputs["instances"].pred_classes)
   #print(outputs["instances"].pred_boxes)
@@ -133,7 +135,7 @@ def infer_layout():
   ans = out.get_image()[:, :, ::-1]
   im = Image.fromarray(ans)
   img_name = 'image_with_predictions.jpg'
-  im.save(f"{img_name}")
+  im.save(f"{output_dir}/{img_name}")
 
   # extracting, bboxes, scores and labels
 
@@ -160,10 +162,10 @@ def infer_layout():
   # storing the labels and corresponding bbox coordinates in a json
   layout_info_sort = {k: v for k, v in sorted(layout_info.items(), key=lambda item: item[1]["box"][1], reverse=True)}
   
-  with open("layout_data.json", 'w', encoding='utf-8') as f:
+  with open(f"{output_dir}/layout_data.json", 'w', encoding='utf-8') as f:
     json.dump(layout_info_sort, f, ensure_ascii=False, indent=4)
 
-    return img, layout_info
+  return img, layout_info
 
 if __name__ == "__main__":
     infer_layout()
