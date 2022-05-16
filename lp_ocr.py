@@ -24,8 +24,8 @@ from layout_inference import infer_layout
 infer_flag = input("Do you wish to use Layout Inference? (yes or no)")
 
 #initialise language model
-tessdata_dir_config = r'--tessdata-dir "/content/layout-with-ocr/configs/tessdata"' #must change while running locally
-os.environ["TESSDATA_PREFIX"] = '/content/layout-with-ocr/configs/tessdata'
+tessdata_dir_config = r'--tessdata-dir "/content/indic-parser/configs/tessdata"' #must change while running locally
+os.environ["TESSDATA_PREFIX"] = '/content/indic-parser/configs/tessdata'
 languages=pytesseract.get_languages(config=tessdata_dir_config)
 lcount=0 
 tesslanglist={}
