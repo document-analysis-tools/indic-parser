@@ -6,10 +6,7 @@ setuptools.setup(
 	url = 'https://github.com/Saurabhbaghel/indicparser',
 	packages = setuptools.find_packages(),
 	package_data = {
-		'configs':[
-			'*.yaml'],
-		'test_img':['*.jpg'],
-		'test_pdf':['*.pdf']
+		'configs':['*.yaml'],
 		},
 	install_requires = [
 		'numpy',
@@ -25,7 +22,7 @@ setuptools.setup(
 		'pdfreader',
 		'layoutparser[ocr]'
 		],
-	
+)
 			
 		
 		
