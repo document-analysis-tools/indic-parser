@@ -4,7 +4,7 @@ setuptools.setup(
 	name = 'indicparser',
 	version = '0.0.8',
 	url = 'https://github.com/Saurabhbaghel/indicparser',
-	packages = setuptools.find_packages(),
+	packages = ['indicparser'],
 	package_data = {
 		'configs':['*.yaml'],
 		},
