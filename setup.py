@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
 	name = 'indicparser',
-	version = '0.0.8',
+	version = '0.1',
 	url = 'https://github.com/Saurabhbaghel/indicparser',
 	packages = ['indicparser'],
 	package_data = {
